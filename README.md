@@ -1,0 +1,1 @@
+# smart-thrive-web-nextjs
