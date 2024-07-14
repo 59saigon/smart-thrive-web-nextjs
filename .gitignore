@@ -409,3 +409,4 @@ FodyWeavers.xsd
 /Studio.API/obj/project.assets.json
 /Studio.API/obj/Studio.API.csproj.nuget.dgspec.json
 Smart-Thrive-FE/package-lock.json
+smart-thrive-web-nextjs/package-lock.json
