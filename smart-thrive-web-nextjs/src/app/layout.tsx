@@ -5,13 +5,13 @@ import { ThemeProvider } from "next-themes";
 import "../styles/index.css";
 import "../styles/prism-vsc-dark-plus.css";
 import { useEffect, useState } from "react";
-import Header from "@/components/navbar";
 import Footer from "@/components/footer";
 
 import PreLoader from "@/components/common/pre-loader";
 import ScrollToTop from "@/components/common/scroll-to-top";
 import ToasterContext from "./api/toast/ToastContext";
 import { NextUIProvider } from "@nextui-org/react";
+import { NavbarHeader } from "@/components/navbar";
 
 export default function RootLayout({
   children,
@@ -44,7 +44,7 @@ export default function RootLayout({
                 defaultTheme="light"
               >
                 <ToasterContext />
-                <Header />
+                <NavbarHeader />
                 {children}
                 <Footer />
                 <ScrollToTop />
