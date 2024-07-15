@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { useTheme } from "next-themes";
 import { AnimatePresence, motion, useMotionValueEvent, useScroll } from "framer-motion";
+import Link from "next/link";
 
 export function NavbarHeader() {
   return (
@@ -19,51 +20,20 @@ export function NavbarHeader() {
 function Navbar({ className }: { className?: string }) {
   const [active, setActive] = useState<string | null>(null);
   const { data: session } = useSession();
-
   const pathUrl = usePathname();
-  // Navbar toggle
   const [navbarOpen, setNavbarOpen] = useState(false);
-  const navbarToggleHandler = () => {
-    setNavbarOpen(!navbarOpen);
-  };
-
-  // Sticky Navbar
+  const navbarToggleHandler = () => setNavbarOpen(!navbarOpen);
   const [sticky, setSticky] = useState(true);
-  const handleStickyNavbar = () => {
-    setSticky(true);
-  };
-  useEffect(() => {
-    window.addEventListener("scroll", handleStickyNavbar);
-  });
-
-  // submenu handler
-  const [openIndex, setOpenIndex] = useState(-1);
-  const handleSubmenu = (index: any) => {
-    if (openIndex === index) {
-      setOpenIndex(-1);
-    } else {
-      setOpenIndex(index);
-    }
-  };
 
   const { theme, setTheme } = useTheme();
   const { scrollYProgress } = useScroll();
-
   const [visible, setVisible] = useState(true);
 
   useMotionValueEvent(scrollYProgress, "change", (current) => {
-    // Check if current is not undefined and is a number
     if (typeof current === "number") {
-      let direction = current! - scrollYProgress.getPrevious()!;
-
-      console.log("get",scrollYProgress.get());
-      console.log("getPre", scrollYProgress.getPrevious());
+      const direction = current - scrollYProgress.getPrevious()!;
       if (scrollYProgress.get() > 0.05) {
-        if ((scrollYProgress.getPrevious()!) > scrollYProgress.get()) {
-          setVisible(true);
-        } else {
-          setVisible(false);
-        }
+        setVisible(scrollYProgress.getPrevious()! > scrollYProgress.get());
       } else {
         setVisible(true);
       }
@@ -90,7 +60,16 @@ function Navbar({ className }: { className?: string }) {
       >
 
         <Menu setActive={setActive}>
-          <MenuItem setActive={setActive} active={active} item="Services">
+          <Link href="/">
+            <img src="/images/logo/whale.png" width={45} height={45} alt="logo" />
+          </Link>
+          <MenuItem setActive={setActive} active={null} item="Home">
+            
+          </MenuItem>
+          <MenuItem setActive={setActive} active={null} item="About">
+            
+          </MenuItem>
+          <MenuItem setActive={setActive} active={active} item="Courses">
             <div className="flex flex-col space-y-4 text-sm">
               <HoveredLink href="/web-dev">Web Development</HoveredLink>
               <HoveredLink href="/interface-design">Interface Design</HoveredLink>
@@ -98,7 +77,7 @@ function Navbar({ className }: { className?: string }) {
               <HoveredLink href="/branding">Branding</HoveredLink>
             </div>
           </MenuItem>
-          <MenuItem setActive={setActive} active={active} item="Products">
+          <MenuItem setActive={setActive} active={active} item="Partners">
             <div className="  text-sm grid grid-cols-2 gap-10 p-4">
               <ProductItem
                 title="Algochurn"

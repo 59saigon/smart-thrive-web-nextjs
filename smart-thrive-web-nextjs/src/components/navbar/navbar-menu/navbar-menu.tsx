@@ -26,10 +26,13 @@ export const MenuItem = ({
     children?: React.ReactNode;
 }) => {
     return (
-        <div onMouseEnter={() => setActive(item)} className="relative ">
+        <motion.div  onMouseEnter={() => setActive(item)}
+        
+        className="relative py-2 px-3 hover:opacity-100 hover:inset-0 hover:transform
+                hover:bg-gradient-to-b hover:from-[#464d55] hover:to-[#25292e] hover:scale-105 hover:rounded-2xl  ">
             <motion.p
                 transition={{ duration: 0.3 }}
-                className="cursor-pointer text-black hover:opacity-[0.9] dark:text-white"
+                className="cursor-pointer text-black hover:text-light dark:text-light"
             >
                 {item}
             </motion.p>
@@ -37,10 +40,15 @@ export const MenuItem = ({
                 <motion.div
                     initial={{ opacity: 0, scale: 0.85, y: 10 }}
                     animate={{ opacity: 1, scale: 1, y: 0 }}
+                    exit={{
+                        opacity: 0,
+                        transition: { duration: 0.15, delay: 0.2 },
+                      }}
                     transition={transition}
                 >
                     {active === item && (
-                        <div className="absolute top-[calc(100%_+_1.2rem)] left-1/2 transform -translate-x-1/2 pt-4">
+                        //top-[calc(100%)]
+                        <div className="absolute left-1/2 transform -translate-x-1/2 pt-4">
                             <motion.div
                                 transition={transition}
                                 layoutId="active" // layoutId ensures smooth animation
@@ -57,7 +65,7 @@ export const MenuItem = ({
                     )}
                 </motion.div>
             )}
-        </div>
+        </motion.div>
     );
 };
 
@@ -71,7 +79,7 @@ export const Menu = ({
     return (
         <nav
             onMouseLeave={() => setActive(null)} // resets the state
-            className="relative rounded-full boder border-transparent border-stroke bg-white/80 backdrop-blur-[5px] dark:border-dark-3/20 dark:bg-[#111014] shadow-input flex flex-row items-center justify-center space-x-8 py-2 px-8 "
+            className="relative rounded-full boder border-transparent border-stroke bg-white/80 backdrop-blur-[5px] dark:border-dark-3/20 dark:bg-[#111014] shadow-input flex flex-row items-center justify-center space-x-4 py-2 px-3"
         >
             {children}
         </nav>
